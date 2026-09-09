@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ==========================================================================
+     ANONYMITY CHECKLIST
+     1. New GitHub account — the github.io URL contains the account name.
+     2. git config user.name "Anonymous" before the first commit.
+     3. No analytics. 4. Replace static/images/favicon.ico.
+     5. No "More Works" dropdown. 6. Strip metadata from any media.
+     ========================================================================== -->
+
+<title>BFN Policy: Visuomotor Policy Learning for Hybrid Action Spaces via Bayesian Flow Networks</title>
+<meta name="description" content="BFN Policy casts hybrid action generation as structured posterior inference in belief space, using Gaussian and categorical conjugate updates instead of denoising in data space.">
+<meta name="citation_title" content="BFN Policy: Visuomotor Policy Learning for Hybrid Action Spaces via Bayesian Flow Networks">
+<meta name="citation_author" content="Anonymous">
+<meta name="citation_publication_date" content="2026">
+<meta name="citation_pdf_url" content="static/pdfs/paper.pdf">
+<meta property="og:title" content="BFN Policy: Hybrid Action Spaces via Bayesian Flow Networks">
+<meta property="og:description" content="Iterative Bayesian inference in belief space for coupled discrete-continuous robot actions.">
+<meta property="og:image" content="static/images/social_preview.png">
+
+<link rel="icon" href="static/images/favicon.ico">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap">
+
+<style>
+  :root{--ink:#1a1a1a; --muted:#5c5c5c; --rule:#e4e4e1; --paper:#fbfbf9;}
+  body{background:var(--paper); color:var(--ink); font-family:"Inter",system-ui,sans-serif;}
+  h1,h2,h3,.title{font-family:"Source Serif 4",Georgia,serif !important; color:var(--ink) !important;}
+  .publication-title{font-size:2.05rem; line-height:1.25; font-weight:600;}
+  .section{padding:2.4rem 1.5rem;}
+  .section-rule{border:0; border-top:1px solid var(--rule); max-width:1000px; margin:0 auto;}
+  .body-copy{max-width:52rem; margin:0 auto; font-size:1.02rem; line-height:1.65;}
+  .body-copy p{margin-bottom:.9rem;}
+  .figure{max-width:1000px; margin:0 auto 1.6rem;}
+  .figure img{width:100%; background:#fff; border:1px solid var(--rule); border-radius:3px;}
+  .caption{color:var(--muted); font-size:.87rem; line-height:1.55; margin-top:.55rem; max-width:52rem;}
+  .figure .caption{margin-left:auto; margin-right:auto;}
+  .caption b{color:var(--ink);}
+  .link-button{background:var(--ink); color:#fff !important; border-radius:2rem; border:0;}
+  .link-button:hover{background:#3b3b3b;}
+  .qhead{font-size:.82rem; color:var(--muted); margin-bottom:.2rem;}
+  table.results{width:100%; border-collapse:collapse; font-size:.85rem; font-variant-numeric:tabular-nums;}
+  table.results th,table.results td{padding:.38rem .5rem; text-align:right; border-bottom:1px solid var(--rule);}
+  table.results th:first-child,table.results td:first-child{text-align:left;}
+  table.results thead th{border-bottom:1.5px solid var(--ink); font-weight:600;}
+  table.results td.best{font-weight:600;}
+  table.results tr.rule-above td{border-top:1px solid var(--ink);}
+  .table-scroll{overflow-x:auto; max-width:1000px; margin:0 auto;}
+  pre.bibtex{background:#fff; border:1px solid var(--rule); border-radius:5px; padding:1rem; font-size:.82rem; overflow-x:auto;}
+  footer{color:var(--muted); font-size:.82rem;}
+  a{color:#1f5fa8;}
+  :focus-visible{outline:2px solid #1f5fa8; outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="section" style="padding-top:3rem;">
+  <div class="container is-max-desktop has-text-centered">
+    <h1 class="publication-title">BFN Policy: Visuomotor Policy Learning for<br>Hybrid Action Spaces via Bayesian Flow Networks</h1>
+    <p style="margin-top:1rem; color:var(--muted);">Anonymous Authors &nbsp;·&nbsp; Under Review</p>
+    <div class="buttons is-centered" style="margin-top:1.3rem;">
+      <a class="button link-button" href="static/pdfs/paper.pdf">Paper</a>
+      <a class="button link-button" href="https://anonymous.4open.science/r/condBFNPol_latest-FB18">Code &amp; videos</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FIG 1 ===== -->
+<section class="section" style="padding-top:0;">
+  <div class="figure">
+    <img src="static/images/fig1_teaser.png" alt="Panel a: hybrid action tasks. Panel b: diffusion relaxation versus a categorical belief on the simplex. Panel c: sampler diagnostics on Hard Move.">
+    <p class="caption"><b>Figure 1. BFN Policy for hybrid action spaces.</b>
+    <b>(a)</b> Hybrid actions couple a discrete mode <em>m</em> with continuous parameters <em>x</em>.
+    In cooperative transport <em>m</em> selects which robot to adjust and <em>x</em> the force it
+    applies; in articulated-object manipulation <em>m</em> is the joint type and <em>x</em> its
+    magnitude. <b>(b)</b> Diffusion Policy relaxes the discrete mode to a one-hot vector and adds
+    Gaussian noise, producing corrupted targets outside the simplex and requiring argmax decoding.
+    BFN Policy refines a categorical belief that remains on the simplex, from a uniform prior at
+    t=0 to a peaked posterior at t=1. <b>(c)</b> Inside the sampler on Hard Move.
+    <em>Top:</em> how often the discrete action would be right if the policy committed at that
+    point of sampling. <em>Middle:</em> magnitude error when the discrete action is right.
+    <em>Bottom:</em> how much lower that error is than when it is wrong; 0 means the magnitude is
+    predicted independently of the discrete choice.</p>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- ===== ABSTRACT ===== -->
+<section class="section">
+  <div class="body-copy">
+    <h2 class="title is-4 has-text-centered">Abstract</h2>
+    <p>Diffusion Policy achieves state-of-the-art imitation learning, but remains limited for real
+    robots because it assumes continuous action spaces and requires many denoising steps for
+    inference. Many manipulation tasks instead require real-time hybrid actions that couple discrete
+    modes with continuous parameters, as formalized in Parameterized Action Markov Decision
+    Processes (PAMDPs). Existing diffusion methods handle such actions by relaxing discrete choices
+    into continuous variables and rounding after denoising, which pushes samples off the probability
+    simplex and weakens discrete–continuous coupling. Faster variants such as DDIM and Consistency
+    Policy reduce inference cost, but inherit the same Gaussian, continuous-only formulation.</p>
+    <p>We introduce <b>BFN Policy</b>, the first Bayesian Flow Network (BFN)-based imitation-learning
+    policy for hybrid actions. BFN Policy casts action generation as structured posterior inference
+    in belief space, using unified Gaussian and categorical conjugate updates rather than denoising
+    in data space. This keeps intermediate distributions valid, preserves discrete–continuous
+    dependencies without relaxation or rounding, and supports adjustable test-time inference budgets
+    without distillation. Across eight PAMDP benchmarks, real-world hybrid Push-T, and simulated
+    continuous Push-T, BFN Policy outperforms state-of-the-art diffusion policies on hybrid tasks,
+    matches Diffusion Policy on continuous control, and runs at DDIM-level cost,
+    <!-- The submitted abstract says "over an order of magnitude". Table II gives 1063 -> 132.5 ms
+         and Sec. IV-A says 8x. Reconcile in the paper. -->
+    roughly 8&times; faster than DDPM.</p>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- ===== METHOD ===== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-4 has-text-centered">Method</h2>
+    <div class="body-copy" style="margin-bottom:1.6rem;">
+      <p>The agent emits an action <em>a</em> = (<b>d</b>, <b>c</b>) with <em>M</em> discrete
+      sub-actions and continuous parameters coupled to those choices. BFN Policy maintains a
+      <em>belief</em> over the action and sharpens it with Bayesian updates. A Gaussian prior meeting
+      a Gaussian message stays Gaussian, so precision adds exactly. A categorical belief
+      <em>θ</em> = softmax(<em>η</em>) receives a message that is additive in <em>η</em>, so the
+      belief never leaves the simplex: no relaxation, no rounding. Training never simulates the
+      recursion, because the belief at any time has a closed-form marginal.</p>
+    </div>
+
+    <div class="figure">
+      <img src="static/images/fig2_overview.png" alt="Training produces belief parameters in closed form from a random time; inference refines the beliefs over n conjugate updates and a final read-out.">
+      <p class="caption"><b>Figure 2. BFN Policy overview.</b> <b>(a)</b> During training,
+      ground-truth actions and a random time produce belief parameters in closed form, with no
+      iteration. A single 1D U-Net conditioned on the encoded observation via FiLM predicts the
+      clean continuous action and the discrete logits; the loss is γ-weighted MSE plus unweighted
+      cross-entropy. <b>(b)</b> At inference the beliefs start from uninformative priors and are
+      refined over <em>n</em> conjugate updates, each drawing a sender observation from the
+      network's predictions and folding it back through the Bayesian update. A final pass at t=1
+      reads off the action.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table class="results">
+        <thead><tr><th></th><th>BFN Policy (ours)</th><th>Diffusion Policy</th></tr></thead>
+        <tbody>
+          <tr><td>Network input</td><td>Belief params (μ, θ)</td><td>Noisy sample a<sub>t</sub></td></tr>
+          <tr><td>Prediction target</td><td>Clean action + logits</td><td>Noise ε̂</td></tr>
+          <tr><td>Update rule</td><td>Conjugate Bayesian</td><td>Iterative denoising</td></tr>
+          <tr class="rule-above"><td>Discrete actions</td><td>Native (categorical flow)</td><td>Relaxation + arg max</td></tr>
+          <tr><td>Action dependency</td><td>Joint, on the simplex</td><td>Joint, in relaxed space</td></tr>
+          <tr class="rule-above"><td>Step flexibility</td><td>Exact for any <em>n</em></td><td>Degrades at small <em>n</em></td></tr>
+        </tbody>
+      </table>
+      <p class="caption"><b>Table I.</b> Both share identical encoders, U-Net backbones and
+      projection widths; only the generative formulation differs.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- ===== Q1 ===== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <p class="qhead has-text-centered">Q1</p>
+    <h2 class="title is-4 has-text-centered">Does BFN Policy outperform diffusion baselines in hybrid action spaces?</h2>
+
+    <div class="figure" style="margin-top:1.4rem;">
+      <img src="static/images/fig3_benchmarks.png" alt="Four PAMDP benchmarks: Platform, Goal, Catch Point and Hard Move.">
+      <p class="caption"><b>Figure 3. PAMDP benchmarks.</b> Each task requires selecting a discrete
+      action type together with its continuous parameters. <b>(a) Platform:</b> reach the goal while
+      avoiding enemies and gaps, choosing run, hop or leap with a continuous displacement.
+      <b>(b) Goal:</b> shoot the ball past the keeper via kick-to(x,y), shoot-left(h) or
+      shoot-right(h); Hard Goal splits the shot into ten actions along the goal line.
+      <b>(c) Catch Point:</b> move in a continuous direction or catch the target.
+      <b>(d) Hard Move:</b> toggle <em>n</em> actuators on or off (2<sup><em>n</em></sup>
+      combinations) and scale the composite displacement.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table class="results">
+        <thead>
+          <tr><th>Task</th><th>Demos</th><th>DLPA (expert)</th><th>Consistency-1</th>
+              <th>Consistency-3</th><th>DDPM-100</th><th>DDIM-10</th><th>BFN-10</th><th>BFN-20</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Platform</td><td>494</td><td>98.8 ± 1.0</td><td>0.0 ± 0.0</td><td>0.0 ± 0.0</td><td>98.0 ± 3.9</td><td class="best">100.0 ± 0.0</td><td class="best">100.0 ± 0.0</td><td>96.0 ± 5.4</td></tr>
+          <tr><td>Catch Point</td><td>401</td><td>80.2 ± 3.5</td><td>0.0 ± 0.0</td><td>2.0 ± 3.9</td><td>84.0 ± 10.2</td><td>78.0 ± 11.5</td><td class="best">88.0 ± 9.0</td><td class="best">88.0 ± 9.0</td></tr>
+          <tr><td>Goal</td><td>231</td><td>46.2 ± 4.4</td><td>0.0 ± 0.0</td><td>0.0 ± 0.0</td><td>22.0 ± 11.5</td><td>8.0 ± 7.5</td><td>40.0 ± 13.6</td><td class="best">44.0 ± 13.8</td></tr>
+          <tr><td>Hard Goal</td><td>222</td><td>44.4 ± 4.4</td><td>0.0 ± 0.0</td><td>0.0 ± 0.0</td><td>20.0 ± 11.1</td><td>14.0 ± 9.6</td><td class="best">22.0 ± 11.5</td><td class="best">22.0 ± 11.5</td></tr>
+          <tr><td>HM-4</td><td>374</td><td>74.8 ± 3.8</td><td>14.0 ± 9.6</td><td>8.0 ± 7.5</td><td>60.0 ± 13.6</td><td>54.0 ± 13.8</td><td class="best">74.0 ± 12.2</td><td class="best">74.0 ± 12.2</td></tr>
+          <tr><td>HM-6</td><td>370</td><td>74.0 ± 3.8</td><td>2.0 ± 3.9</td><td>2.0 ± 3.9</td><td>12.0 ± 9.0</td><td>10.0 ± 8.3</td><td>76.0 ± 11.8</td><td class="best">78.0 ± 11.5</td></tr>
+          <tr><td>HM-8</td><td>279</td><td>55.8 ± 4.4</td><td>2.0 ± 3.9</td><td>2.0 ± 3.9</td><td>2.0 ± 3.9</td><td>2.0 ± 3.9</td><td class="best">56.0 ± 13.8</td><td class="best">56.0 ± 13.8</td></tr>
+          <tr><td>HM-10</td><td>132</td><td>17.0 ± 7.4</td><td>2.0 ± 3.9</td><td>2.0 ± 3.9</td><td>2.0 ± 3.9</td><td>4.0 ± 5.4</td><td>16.0 ± 10.2</td><td class="best">18.0 ± 10.6</td></tr>
+          <tr class="rule-above"><td>Inference (ms)</td><td>–</td><td>–</td><td>12.2 ± 0.3</td><td>33.2 ± 0.3</td><td>1063.3 ± 24.2</td><td>106.8 ± 2.1</td><td>132.5 ± 2.9</td><td>253.0 ± 5.5</td></tr>
+          <tr><td>NFE</td><td>–</td><td>–</td><td>1</td><td>3</td><td>100</td><td>10</td><td>11</td><td>21</td></tr>
+        </tbody>
+      </table>
+      <p class="caption"><b>Table II. Success rate on PAMDP benchmarks.</b> HM-<em>n</em> denotes
+      Hard Move with <em>n</em> actuators (2<sup><em>n</em></sup> discrete combinations). Mean ± 95%
+      CI over 50 episodes; best among learned policies in bold.</p>
+    </div>
+
+    <div class="body-copy" style="margin-top:1.8rem;">
+      <p><b>BFN Policy leads every generative baseline and largely matches the expert.</b> BFN-20
+      attains the highest mean among learned policies on 7 of 8 tasks, with CIs overlapping DLPA's;
+      Hard Goal is the only genuine gap.</p>
+
+      <p><b>Diffusion baselines collapse as discrete cardinality grows, and Figure 1(c) shows
+      why.</b> On Hard Move, DDPM and DDIM lose most of their success rate by <em>n</em>=6 and are
+      at chance by <em>n</em>=8, while BFN Policy degrades gracefully, tracking the expert's own
+      decay. Three rows isolate the cause. <em>Top:</em> the baselines build their discrete decode
+      up over sampling and at <em>n</em>=8 never leave chance, whereas BFN Policy's is set by the
+      first network pass and unchanged thereafter (11% against an expert 15%). <em>Middle:</em>
+      where they do decode correctly, their magnitude error rises with <em>K</em> to 0.86–0.91
+      against BFN Policy's 0.55–0.64. <em>Bottom:</em> BFN Policy's error is 22–33% lower when its
+      discrete action is right, as the expert's is (55–76%), whereas the baselines' 0–11% has CIs
+      through zero at <em>n</em>≥6: their magnitude ignores the action they chose.</p>
+
+      <p><b>Distillation does not rescue few-step hybrid sampling, but BFN Policy needs none.</b>
+      Consistency Policy is near zero everywhere: distillation cannot recover a teacher weakened by
+      relaxation. BFN Policy instead reduces NFE for free — BFN-10 matches BFN-20 within CI on every
+      task, at DDIM-comparable latency and 8× faster than DDPM.</p>
+    </div>
+
+    <div class="figure" style="margin-top:1.6rem;">
+      <img src="static/images/fig5_nfe_sweep.png" alt="Success rate and cumulative reward against the number of inference steps, for a single checkpoint per environment.">
+      <p class="caption"><b>Figure 5. Step-count flexibility.</b> Success rate (a) and cumulative
+      reward (b) versus inference steps <em>n</em> for a single checkpoint per environment, without
+      retraining. Performance holds from <em>n</em>=50 down to <em>n</em>≈10 and collapses only at
+      <em>n</em>=1. Mean over 50 episodes.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- ===== Q2 ===== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <p class="qhead has-text-centered">Q2</p>
+    <h2 class="title is-4 has-text-centered">Does BFN Policy generalize to purely continuous action spaces?</h2>
+
+    <div class="figure" style="margin-top:1.4rem;">
+      <img src="static/images/fig4_pusht.png" alt="Simulated Push-T and the WidowX hardware setup.">
+      <p class="caption"><b>Figure 4. Push-T evaluation.</b> (a) simulated Push-T; (b) the WidowX
+      hardware setup. The action is a purely continuous 2-D target position, so BFN Policy reduces
+      to the Gaussian belief flow and, dropping the γ-weighting, shares the Diffusion Policy
+      objective exactly — leaving belief space as the only difference.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table class="results">
+        <thead>
+          <tr><th rowspan="2">Method</th><th rowspan="2">NFE</th>
+              <th colspan="2">Simulation</th><th colspan="2">WidowX (real)</th></tr>
+          <tr><th>Max coverage</th><th>Inference (ms)</th><th>IoU (last frame)</th><th>Inference (ms)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Consistency-1</td><td>1</td><td>0.81 ± 0.10</td><td>9.71 ± 0.01</td><td>0.29 ± 0.11</td><td>15.50 ± 0.57</td></tr>
+          <tr><td>Consistency-3</td><td>3</td><td>0.81 ± 0.09</td><td>23.51 ± 0.01</td><td>0.36 ± 0.13</td><td>33.00 ± 0.38</td></tr>
+          <tr><td>DDPM-100</td><td>100</td><td>0.95 ± 0.04</td><td>660.31 ± 0.18</td><td>0.82 ± 0.05</td><td>815.63 ± 3.18</td></tr>
+          <tr><td>DDIM-10</td><td>10</td><td class="best">0.96 ± 0.04</td><td>68.55 ± 0.27</td><td>0.85 ± 0.03</td><td>89.76 ± 6.80</td></tr>
+          <tr><td>BFN-10</td><td>11</td><td>0.84 ± 0.07</td><td>63.50 ± 0.01</td><td>0.83 ± 0.02</td><td>90.32 ± 0.46</td></tr>
+          <tr><td>BFN-20</td><td>21</td><td>0.92 ± 0.06</td><td>120.60 ± 0.98</td><td class="best">0.88 ± 0.03</td><td>167.11 ± 0.57</td></tr>
+        </tbody>
+      </table>
+      <p class="caption"><b>Table III. Continuous Push-T results.</b> Mean ± 95% CI over 50
+      (simulation) and 15 (real) rollouts.</p>
+    </div>
+
+    <div class="body-copy" style="margin-top:1.8rem;">
+      <p><b>In simulation, BFN Policy matches the diffusion baselines within statistical noise.</b>
+      BFN-20's coverage falls inside the CIs of both DDPM-100 and DDIM-10. At matched steps DDIM-10
+      leads BFN-10 by a clear margin, but doubling to 20 steps closes it, at a per-call cost still
+      well below DDPM-100.</p>
+      <p><b>BFN Policy converts extra steps into accuracy where Consistency Policy does not.</b>
+      Consistency is unchanged from 1 to 3 steps, capping well below BFN Policy despite its lower
+      latency and an extra distillation stage.</p>
+      <p><b>On hardware BFN Policy leads outright.</b> BFN-20 attains the highest IoU, above both
+      DDIM-10 and DDPM-100 at 5× less compute than the latter, and BFN-10 already matches DDIM-10
+      within CI. The consistency baselines lose roughly half their performance from simulation to
+      hardware while all other methods lose little, suggesting distilled few-step samplers are the
+      least robust to real-world visual and dynamics shift. That BFN Policy trails slightly in
+      simulation yet leads on hardware indicates its hybrid formulation costs nothing on purely
+      continuous control.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- ===== Q3 ===== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <p class="qhead has-text-centered">Q3</p>
+    <h2 class="title is-4 has-text-centered">Can BFN Policy transfer to real-world robotic tasks with hybrid actions?</h2>
+
+    <div class="body-copy" style="margin-top:1.4rem; margin-bottom:1.4rem;">
+      <p>We keep the Push-T setting but make the action hybrid: a discrete push direction out of
+      eight cardinal and diagonal unit vectors, paired with a continuous distance. This mirrors how
+      a teleoperator pushes, committing to a direction before choosing how far, and makes the
+      coupling explicit: the same distance is correct or catastrophic depending on the direction.</p>
+    </div>
+
+    <div class="figure">
+      <img src="static/images/fig6_real_setup.png" alt="Real hybrid Push-T setup with a front camera for observations and a top-down camera for evaluation only.">
+      <p class="caption"><b>Figure 6. Real hybrid Push-T setup.</b> The front camera provides policy
+      observations; the top-down camera is used for evaluation only.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table class="results">
+        <thead><tr><th>Method</th><th>NFE</th><th>IoU</th><th>Inference (ms)</th><th>Duration (s)</th></tr></thead>
+        <tbody>
+          <tr><td>Consistency-1</td><td>1</td><td>0.30 ± 0.10</td><td>6.52 ± 0.55</td><td>98.46 ± 3.34</td></tr>
+          <tr><td>Consistency-3</td><td>3</td><td>0.23 ± 0.09</td><td>6.54 ± 0.55</td><td>99.95 ± 2.97</td></tr>
+          <tr><td>DDPM-100</td><td>100</td><td>0.39 ± 0.14</td><td>259.20 ± 0.64</td><td>119.08 ± 10.51</td></tr>
+          <tr><td>DDIM-10</td><td>10</td><td>0.38 ± 0.11</td><td>29.33 ± 0.46</td><td>107.71 ± 3.77</td></tr>
+          <tr><td>BFN-10</td><td>11</td><td>0.42 ± 0.11</td><td>29.55 ± 0.55</td><td class="best">90.48 ± 10.30</td></tr>
+          <tr><td>BFN-20</td><td>21</td><td class="best">0.48 ± 0.11</td><td>53.58 ± 0.53</td><td>110.25 ± 16.86</td></tr>
+        </tbody>
+      </table>
+      <p class="caption"><b>Table IV. Real hybrid Push-T results.</b> Mean ± 95% CI over 20 rollouts.</p>
+    </div>
+
+    <div class="body-copy" style="margin-top:1.8rem;">
+      <p><b>The hybrid-action advantage transfers to real hardware.</b> BFN-20 attains the highest
+      IoU, and BFN-10 leads DDIM-10 at matched NFE while edging DDPM-100 at one-tenth its NFE. The
+      CIs overlap at 20 rollouts, but the ranking reproduces simulation, indicating that a
+      structured posterior over the coupled direction and distance survives sensor noise and
+      imperfect actuation.</p>
+      <p><b>Duration corroborates this ranking independently of IoU.</b> With an action horizon of
+      8, a 150-step rollout needs only about 19 policy calls, so sampling is under 1% of an episode
+      and duration reflects policy quality rather than latency: BFN-10 attains the lowest duration,
+      the only gap to DDPM-100 with non-overlapping CIs, because higher accuracy means fewer
+      corrective pushes.</p>
+      <p><b>Consistency Policy again fails on hybrid actions.</b> Both variants trail every method
+      and 3 steps are no better than 1, since distillation cannot recover a teacher already weakened
+      by one-hot relaxation.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- ===== CONCLUSION ===== -->
+<section class="section">
+  <div class="body-copy">
+    <h2 class="title is-4 has-text-centered">Conclusion and limitations</h2>
+    <p>BFN Policy is the first imitation-learning policy for hybrid action spaces built on Bayesian
+    inference rather than diffusion. Conjugate Gaussian and categorical updates in parameter space
+    preserve discrete–continuous dependencies without relaxation, rounding or distillation. Across
+    eight PAMDP benchmarks it matches or outperforms all diffusion baselines, its margin widening as
+    discrete branching grows and relaxation-based samplers degrade, and it is statistically
+    indistinguishable from the DLPA expert on all but one task. The gains transfer to a real Push-T
+    task with a hybrid action space, while on continuous-only Push-T it matches Diffusion Policy,
+    showing that hybrid capability costs nothing on continuous control.</p>
+    <p>As a proof of concept, the study is limited to PAMDPs with a 1D U-Net backbone and few
+    real-robot tasks; richer hybrid structures, modern backbones and broader real-world evaluation
+    remain future work.</p>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- ===== BIBTEX ===== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-4 has-text-centered">Citation</h2>
+    <pre class="bibtex">@article{anonymous2026bfnpolicy,
+  title   = {BFN Policy: Visuomotor Policy Learning for Hybrid
+             Action Spaces via Bayesian Flow Networks},
+  author  = {Anonymous},
+  journal = {Under review},
+  year    = {2026}
+}</pre>
+  </div>
+</section>
+
+<footer class="section has-text-centered" style="padding-top:1rem;">
+  <p>Page template adapted from the
+  <a href="https://github.com/eliahuhorwitz/Academic-project-page-template">Academic Project Page Template</a>,
+  used under CC BY-SA 4.0.</p>
+</footer>
+
+</body>
+</html>

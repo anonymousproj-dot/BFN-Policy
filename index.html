@@ -8,26 +8,32 @@
      ANONYMITY CHECKLIST
      1. New GitHub account — the github.io URL contains the account name.
      2. git config user.name "Anonymous" before the first commit.
-     3. No analytics. 4. Replace static/images/favicon.ico.
-     5. No "More Works" dropdown. 6. Strip metadata from any media.
+     3. No analytics. 4. static/images/favicon.png is a neutral generated icon.
+     5. No "More Works" dropdown. 6. All media in static/ were re-rendered /
+        re-encoded with metadata stripped (do NOT upload figures/*.pdf as-is:
+        several carry an Author field). 7. Real-robot clips are silent and
+        show only the robot, table and curtain. 8. Narration in the overview
+        video is AI-generated.
      ========================================================================== -->
 
 <title>BFN Policy: Visuomotor Policy Learning for Hybrid Action Spaces via Bayesian Flow Networks</title>
 <meta name="description" content="BFN Policy casts hybrid action generation as structured posterior inference in belief space, using Gaussian and categorical conjugate updates instead of denoising in data space.">
+<!-- Keep the anonymous page out of search indexes and never send it as a referrer. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
 <meta name="citation_title" content="BFN Policy: Visuomotor Policy Learning for Hybrid Action Spaces via Bayesian Flow Networks">
 <meta name="citation_author" content="Anonymous">
 <meta name="citation_publication_date" content="2026">
-<meta name="citation_pdf_url" content="static/pdfs/paper.pdf">
 <meta property="og:title" content="BFN Policy: Hybrid Action Spaces via Bayesian Flow Networks">
 <meta property="og:description" content="Iterative Bayesian inference in belief space for coupled discrete-continuous robot actions.">
 <meta property="og:image" content="static/images/social_preview.png">
 
-<link rel="icon" href="static/images/favicon.ico">
+<link rel="icon" type="image/png" href="static/images/favicon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap">
 
 <style>
-  :root{--ink:#1a1a1a; --muted:#5c5c5c; --rule:#e4e4e1; --paper:#fbfbf9;}
+  :root{--ink:#1a1a1a; --muted:#5c5c5c; --rule:#e4e4e1; --paper:#fbfbf9; --accent:#1a8f5e;}
   body{background:var(--paper); color:var(--ink); font-family:"Inter",system-ui,sans-serif;}
   h1,h2,h3,.title{font-family:"Source Serif 4",Georgia,serif !important; color:var(--ink) !important;}
   .publication-title{font-size:2.05rem; line-height:1.25; font-weight:600;}
@@ -42,6 +48,8 @@
   .caption b{color:var(--ink);}
   .link-button{background:var(--ink); color:#fff !important; border-radius:2rem; border:0;}
   .link-button:hover{background:#3b3b3b;}
+  .link-button.is-light{background:#fff; color:var(--ink) !important; border:1px solid var(--ink);}
+  .link-button.is-light:hover{background:#f1f1ee;}
   .qhead{font-size:.82rem; color:var(--muted); margin-bottom:.2rem;}
   table.results{width:100%; border-collapse:collapse; font-size:.85rem; font-variant-numeric:tabular-nums;}
   table.results th,table.results td{padding:.38rem .5rem; text-align:right; border-bottom:1px solid var(--rule);}
@@ -54,6 +62,30 @@
   footer{color:var(--muted); font-size:.82rem;}
   a{color:#1f5fa8;}
   :focus-visible{outline:2px solid #1f5fa8; outline-offset:2px;}
+
+  /* key-results strip */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; max-width:1000px; margin:2rem auto 0; text-align:left;}
+  .stat{border-top:2px solid var(--ink); padding-top:.6rem;}
+  .stat .num{font-family:"Source Serif 4",Georgia,serif; font-size:1.85rem; font-weight:600; line-height:1.1; color:var(--ink);}
+  .stat .num em{font-style:normal; color:var(--accent);}
+  .stat .lbl{color:var(--muted); font-size:.84rem; line-height:1.45; margin-top:.3rem;}
+  @media (max-width:700px){.stats{grid-template-columns:repeat(2,1fr);}}
+
+  /* videos */
+  .video-wrap{max-width:1000px; margin:0 auto;}
+  .video-wrap video{width:100%; display:block; background:#000; border:1px solid var(--rule); border-radius:3px;}
+  .clips{display:grid; gap:14px; max-width:1000px; margin:0 auto 14px;}
+  .clips.one{grid-template-columns:1fr;}
+  .clips.row-goal{grid-template-columns:3fr 3fr 4fr;}   /* widths follow aspect ratios so heights match */
+  .clips.row-hm{grid-template-columns:repeat(4,1fr);}
+  .clip video{width:100%; display:block; border:1px solid var(--rule); border-radius:3px; background:#fff;}
+  .clip .lbl{font-size:.82rem; color:var(--muted); text-align:center; margin-top:.35rem; line-height:1.4;}
+  .clip .lbl b{color:var(--ink); font-weight:600;}
+  @media (max-width:640px){.clips.row-hm{grid-template-columns:repeat(2,1fr);}}
+  .side-by-side{max-width:1000px; margin:0 auto 1.6rem;}
+  .side-by-side .column{display:flex; flex-direction:column;}
+  .side-by-side img,.side-by-side video{width:100%; display:block; background:#fff; border:1px solid var(--rule); border-radius:3px;}
+  .side-by-side .caption{max-width:none;}
 </style>
 </head>
 <body>
@@ -65,8 +97,46 @@
     <p style="margin-top:1rem; color:var(--muted);">Anonymous Authors &nbsp;·&nbsp; Under Review</p>
     <div class="buttons is-centered" style="margin-top:1.3rem;">
       <!-- <a class="button link-button" href="static/pdfs/paper.pdf">Paper</a> -->
-      <a class="button link-button" href="https://anonymous.4open.science/r/condBFNPol_latest-FB18">Code &amp; videos</a>
+      <a class="button link-button" href="#video">Overview video</a>
+      <a class="button link-button" href="#rollouts">Rollouts</a>
+      <a class="button link-button is-light" href="https://anonymous.4open.science/r/condBFNPol_latest-FB18">Code</a>
     </div>
+
+    <div class="body-copy" style="margin-top:1.6rem; text-align:left;">
+      <p><b>The problem.</b> Robots are often controlled through hybrid actions that pair a
+      discrete choice with continuous parameters (which robot to actuate and with what force;
+      slide, rotate or twist, and by how much). Diffusion Policy must relax the discrete choice into
+      a continuous vector and round it back, which breaks the coupling between the two parts.
+      <b>The idea.</b> BFN Policy replaces denoising in data space with Bayesian inference in belief
+      space: a Gaussian belief over the continuous parameters and a categorical belief over the
+      discrete mode, sharpened by closed-form conjugate updates so that no relaxation, rounding or
+      distillation is ever needed.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="num"><em>7</em> / 8</div>
+        <div class="lbl">PAMDP tasks on which BFN-20 has the highest mean among learned policies, matching the expert within CI on all but one.</div></div>
+      <div class="stat"><div class="num"><em>56%</em> vs 2%</div>
+        <div class="lbl">Success on Hard Move-8 (256 discrete combinations): BFN Policy versus DDPM and DDIM, which are at chance.</div></div>
+      <div class="stat"><div class="num"><em>8×</em> faster</div>
+        <div class="lbl">BFN-10 matches BFN-20 within CI on every task at DDIM-level latency, 8× less than DDPM-100.</div></div>
+      <div class="stat"><div class="num"><em>2</em> real robots</div>
+        <div class="lbl">Highest IoU on hybrid Push-T (xArm) and on continuous Push-T (WidowX) against every diffusion and consistency baseline.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OVERVIEW VIDEO ===== -->
+<section class="section" id="video" style="padding-top:.6rem;">
+  <div class="video-wrap">
+    <video controls preload="metadata" poster="static/images/overview_poster.jpg">
+      <source src="static/videos/overview.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p class="caption" style="margin-left:auto; margin-right:auto;"><b>Overview video (3 min).</b>
+    The hybrid-action problem, why diffusion relaxation fails, how BFN Policy performs inference in
+    belief space, and results on eight PAMDP benchmarks and two real robots. <em>The narration is
+    AI-generated to preserve anonymity.</em></p>
   </div>
 </section>
 
@@ -111,8 +181,6 @@
     without distillation. Across eight PAMDP benchmarks, real-world hybrid Push-T, and simulated
     continuous Push-T, BFN Policy outperforms state-of-the-art diffusion policies on hybrid tasks,
     matches Diffusion Policy on continuous control, and runs at DDIM-level cost,
-    <!-- The submitted abstract says "over an order of magnitude". Table II gives 1063 -> 132.5 ms
-         and Sec. IV-A says 8x. Reconcile in the paper. -->
     roughly 8&times; faster than DDPM.</p>
   </div>
 </section>
@@ -183,7 +251,62 @@
       combinations) and scale the composite displacement.</p>
     </div>
 
-    <div class="table-scroll">
+    <!-- ---- Rollout comparisons ---- -->
+    <div id="rollouts" style="margin-top:2rem;">
+      <h3 class="title is-5 has-text-centered" style="margin-bottom:1rem;">Rollout comparisons: same observation, same backbone, four samplers</h3>
+
+      <div class="clips one">
+        <div class="clip">
+          <video class="loop" autoplay muted loop playsinline preload="metadata" src="static/videos/platform.mp4"></video>
+          <div class="lbl"><b>Platform</b> · run / hop / leap + displacement · all diffusion samplers solve it, Consistency-1 does not</div>
+        </div>
+      </div>
+
+      <div class="clips row-goal">
+        <div class="clip">
+          <video class="loop" autoplay muted loop playsinline preload="metadata" src="static/videos/goal.mp4"></video>
+          <div class="lbl"><b>Goal</b> · kick-to / shoot-left / shoot-right</div>
+        </div>
+        <div class="clip">
+          <video class="loop" autoplay muted loop playsinline preload="metadata" src="static/videos/hard_goal.mp4"></video>
+          <div class="lbl"><b>Hard Goal</b> · shot split into ten discrete targets</div>
+        </div>
+        <div class="clip">
+          <video class="loop" autoplay muted loop playsinline preload="metadata" src="static/videos/catch_point.mp4"></video>
+          <div class="lbl"><b>Catch Point</b> · move(direction) or catch</div>
+        </div>
+      </div>
+
+      <div class="clips row-hm">
+        <div class="clip">
+          <video class="loop" autoplay muted loop playsinline preload="metadata" src="static/videos/hard_move_n4.mp4"></video>
+          <div class="lbl"><b>Hard Move-4</b> · K = 16</div>
+        </div>
+        <div class="clip">
+          <video class="loop" autoplay muted loop playsinline preload="metadata" src="static/videos/hard_move_n6.mp4"></video>
+          <div class="lbl"><b>Hard Move-6</b> · K = 64</div>
+        </div>
+        <div class="clip">
+          <video class="loop" autoplay muted loop playsinline preload="metadata" src="static/videos/hard_move_n8.mp4"></video>
+          <div class="lbl"><b>Hard Move-8</b> · K = 256</div>
+        </div>
+        <div class="clip">
+          <video class="loop" autoplay muted loop playsinline preload="metadata" src="static/videos/hard_move_n10.mp4"></video>
+          <div class="lbl"><b>Hard Move-10</b> · K = 1024</div>
+        </div>
+      </div>
+
+      <p class="caption" style="margin-left:auto; margin-right:auto;"><b>Rollouts on the PAMDP
+      benchmarks.</b> Every clip is a 2×2 panel of <b>BFN-20</b> (top-left), DDIM-10, DDPM-100 and
+      Consistency-1 (labels in frame), all started from the same initial state and sharing the same
+      encoder and U-Net. <em>R</em> is the episode return and ✓/✗ marks success. In Hard Move the
+      blue agent must reach the flagged target: as the number of actuator combinations <em>K</em>
+      grows, the diffusion samplers stop moving toward the goal while BFN Policy still commits to a
+      correct combination. Simulation clips are slowed for visibility (Platform 3×, Goal and Hard
+      Goal 4×, Hard Move 1.5×).</p>
+    </div>
+
+    <div class="table-scroll" style="margin-top:2rem;">
       <table class="results">
         <thead>
           <tr><th>Task</th><th>Demos</th><th>DLPA (expert)</th><th>Consistency-1</th>
@@ -247,12 +370,20 @@
     <p class="qhead has-text-centered">Q2</p>
     <h2 class="title is-4 has-text-centered">Does BFN Policy generalize to purely continuous action spaces?</h2>
 
-    <div class="figure" style="margin-top:1.4rem;">
-      <img src="static/images/fig4_pusht.png" alt="Simulated Push-T and the WidowX hardware setup.">
-      <p class="caption"><b>Figure 4. Push-T evaluation.</b> (a) simulated Push-T; (b) the WidowX
-      hardware setup. The action is a purely continuous 2-D target position, so BFN Policy reduces
-      to the Gaussian belief flow and, dropping the γ-weighting, shares the Diffusion Policy
-      objective exactly — leaving belief space as the only difference.</p>
+    <div class="columns side-by-side" style="margin-top:1.4rem;">
+      <div class="column is-6">
+        <img src="static/images/fig4_pusht.png" alt="Simulated Push-T and the WidowX hardware setup.">
+        <p class="caption"><b>Figure 4. Push-T evaluation.</b> (a) simulated Push-T; (b) the WidowX
+        hardware setup. The action is a purely continuous 2-D target position, so BFN Policy reduces
+        to the Gaussian belief flow and, dropping the γ-weighting, shares the Diffusion Policy
+        objective exactly — leaving belief space as the only difference.</p>
+      </div>
+      <div class="column is-6">
+        <video class="loop" autoplay muted loop playsinline preload="metadata" src="static/videos/widowx.mp4"></video>
+        <p class="caption"><b>Real continuous Push-T on WidowX.</b> Side-camera view of the four
+        samplers pushing the T onto its outline (labels in frame; BFN-20 top-left). BFN-20 reaches
+        the highest final IoU, while both consistency variants leave the T far from the target.</p>
+      </div>
     </div>
 
     <div class="table-scroll">
@@ -309,10 +440,19 @@
       coupling explicit: the same distance is correct or catastrophic depending on the direction.</p>
     </div>
 
-    <div class="figure">
-      <img src="static/images/fig6_real_setup.png" alt="Real hybrid Push-T setup with a front camera for observations and a top-down camera for evaluation only.">
-      <p class="caption"><b>Figure 6. Real hybrid Push-T setup.</b> The front camera provides policy
-      observations; the top-down camera is used for evaluation only.</p>
+    <div class="columns side-by-side">
+      <div class="column is-5">
+        <img src="static/images/fig6_real_setup.png" alt="Real hybrid Push-T setup with a front camera for observations and a top-down camera for evaluation only.">
+        <p class="caption"><b>Figure 6. Real hybrid Push-T setup.</b> The front camera provides policy
+        observations; the top-down camera is used for evaluation only.</p>
+      </div>
+      <div class="column is-7">
+        <video class="loop" autoplay muted loop playsinline preload="metadata" src="static/videos/xArm.mp4"></video>
+        <p class="caption"><b>Real hybrid Push-T on xArm.</b> Front-camera view of the four samplers
+        (labels in frame; BFN-20 top-left). Each policy call commits to one of eight push directions
+        and a push distance. BFN-20 aligns the T with its outline in the fewest pushes; Consistency-1
+        pushes in the wrong direction and never recovers.</p>
+      </div>
     </div>
 
     <div class="table-scroll">
@@ -370,12 +510,29 @@
 
 <hr class="section-rule">
 
-
-<!-- <footer class="section has-text-centered" style="padding-top:1rem;">
-  <p>Page template adapted from the
+<footer class="section has-text-centered" style="padding-top:1rem;">
+  <p>Anonymous project page for double-blind review. All narration is AI-generated and all
+  media have been stripped of metadata.</p>
+  <!-- <p>Page template adapted from the
   <a href="https://github.com/eliahuhorwitz/Academic-project-page-template">Academic Project Page Template</a>,
-  used under CC BY-SA 4.0.</p>
-</footer> -->
+  used under CC BY-SA 4.0.</p> -->
+</footer>
+
+<script>
+  // Play looping clips only while they are on screen (no external scripts, no tracking).
+  (function () {
+    var clips = document.querySelectorAll('video.loop');
+    if (!('IntersectionObserver' in window)) { return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) { p.catch(function () {}); } }
+        else { v.pause(); }
+      });
+    }, { rootMargin: '200px 0px' });
+    clips.forEach(function (v) { io.observe(v); });
+  })();
+</script>
 
 </body>
 </html>
